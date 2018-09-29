@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+ * This program is for cs180 hw5 that it controls a parking garage
+ * @author Haoran Yin(Ian) yin143@purdue.edu
+ * @version 2018-09-29-00
+ */
 public class ValetParker {
 
     public static void main(String[] args) {
@@ -18,17 +23,49 @@ public class ValetParker {
         String[][][] parking = new String[floor][row][column];
         boolean go = true;
         int choice;
-        while(go) {
+        while (go) {
             System.out.println(menu);
             choice = input.nextInt();
             switch (choice) {
                 case 1:
+                    System.out.println("Enter Car Description:");
+                    String description = input.nextLine();
+                    description = input.nextLine();
+                    int parkFloor = 0;
+                    int parkRow = 0;
+                    int parkColumn = 0;
+                    boolean found = false;
+                    if (parking[floor - 1][row - 1][column - 1] != null)
+                        System.out.println("No Spaces Available.");
+                    else {
+                        for (int i = 0; i < floor; i++) {
+                            if (!found) {
+                                for (int k = 0; k < row; k++) {
+                                    if (!found) {
+                                        for (int z = 0; z < column; z++) {
+                                            if (!found && parking[i][k][z] == null) {
+                                                parkFloor = i;
+                                                parkRow = k;
+                                                parkColumn = z;
+                                                found = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        parking[parkFloor][parkRow][parkColumn] = description;
+                        System.out.println("Car parked at:\n" + divider + "\n" +
+                                "Floor: " + parkFloor + "\n" +
+                                "Row: " + parkRow + "\n" +
+                                "Col: " + parkColumn + "\n");
+                    }
                     break;
                 case 2:
                     for (int i = 0; i < floor; i++) {
                         System.out.println("Floor: " + i + "\n" + divider);
-                        for (int k = 0; k < row; k++){
-                            for(int z = 0; z < column; z++){
+                        for (int k = 0; k < row; k++) {
+                            for (int z = 0; z < column; z++) {
                                 System.out.print("|");
                                 if (parking[i][k][z] == null)
                                     System.out.print(" ");
